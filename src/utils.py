@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import logging
 import pandas as pd
 import requests
 from typing import Any
@@ -8,6 +9,13 @@ from typing import Any
 from dotenv import load_dotenv
 
 load_dotenv()
+
+logger = logging.getLogger("utils")
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler("logs/utils.log", "w", encoding="utf-8")
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
 
 
 def greeting() -> str:
@@ -28,6 +36,7 @@ def greeting() -> str:
 def cards(data: str, path: Any) -> list:
     """Функция, формирующая информацию по карте (номер, расход, кэшбэк)"""
     try:
+        logger.info("Чтение транзакций из файла")
         date_string = datetime.datetime.strptime(data, "%Y-%m-%d %H:%M:%S").date()
         start_date = date_string.replace(day=1)
         reader = pd.read_excel(path, engine="openpyxl")
@@ -47,13 +56,14 @@ def cards(data: str, path: Any) -> list:
         result["Кэшбэк"] = result["Сумма операции"].apply(lambda x: round(x / 100, 2))
         return result.to_dict(orient="records")
     except ValueError:
-        print("Неверный формат даты!")
+        logger.error("Неверный формат даты!")
         return []
 
 
 def top_five_transactions(data: str, path: Any) -> list:
     """Функция, возвращающая топ 5 транзакций по сумме платежа"""
     try:
+        logger.info("Чтение транзакций из файла")
         date_string = datetime.datetime.strptime(data, "%Y-%m-%d %H:%M:%S").date()
         start_date = date_string.replace(day=1)
         reader = pd.read_excel(path, engine="openpyxl")
@@ -79,7 +89,7 @@ def top_five_transactions(data: str, path: Any) -> list:
             new_list.append(new_dict)
         return new_list
     except ValueError:
-        print("Неверный формат даты!")
+        logger.error("Неверный формат даты!")
         return []
 
 

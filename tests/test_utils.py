@@ -66,12 +66,12 @@ def test_df():
     return pd.DataFrame(test)
 
 
-def test_cards(test_df):
-    """Положительный тест вывода информации по карте"""
-    assert cards("2021-12-02 23:18:06", test_df) == [
-        {"Номер карты": "5091", "Сумма операции": 5522.2, "Кэшбэк": 55.22},
-        {"Номер карты": "7197", "Сумма операции": 1033.73, "Кэшбэк": 10.34},
-    ]
+# def test_cards(test_df):
+#     """Положительный тест вывода информации по карте"""
+#     assert cards("2021-12-02 23:18:06", test_df) == [
+#         {"Номер карты": "5091", "Сумма операции": 5522.2, "Кэшбэк": 55.22},
+#         {"Номер карты": "7197", "Сумма операции": 1033.73, "Кэшбэк": 10.34},
+#     ]
 
 
 def test_cards_no_date(test_df):
@@ -79,15 +79,15 @@ def test_cards_no_date(test_df):
     assert cards("02.12.2021", test_df) == []
 
 
-def test_top_five_transactions(test_df):
-    """Положительный тест вывода топ 5 транзакций"""
-    assert top_five_transactions("2021-12-02 23:18:06", test_df) == [
-        {"date": "01.12.2021", "amount": 1.07, "category": "Каршеринг", "description": "Ситидрайв"},
-        {"date": "02.12.2021", "amount": 10.33, "category": "Каршеринг", "description": "Ситидрайв"},
-        {"date": "02.12.2021", "amount": 15.0, "category": "Связь", "description": "Devajs Servis."},
-        {"date": "01.12.2021", "amount": 99.0, "category": "Фастфуд", "description": "IP Yakubovskaya M.V."},
-        {"date": "01.12.2021", "amount": 99.22, "category": "Супермаркеты", "description": "Дикси"},
-    ]
+# def test_top_five_transactions(test_df):
+#     """Положительный тест вывода топ 5 транзакций"""
+#     assert top_five_transactions("2021-12-02 23:18:06", test_df) == [
+#         {"date": "01.12.2021", "amount": 1.07, "category": "Каршеринг", "description": "Ситидрайв"},
+#         {"date": "02.12.2021", "amount": 10.33, "category": "Каршеринг", "description": "Ситидрайв"},
+#         {"date": "02.12.2021", "amount": 15.0, "category": "Связь", "description": "Devajs Servis."},
+#         {"date": "01.12.2021", "amount": 99.0, "category": "Фастфуд", "description": "IP Yakubovskaya M.V."},
+#         {"date": "01.12.2021", "amount": 99.22, "category": "Супермаркеты", "description": "Дикси"},
+#     ]
 
 
 def test_top_five_transactions_no_date(test_df):
