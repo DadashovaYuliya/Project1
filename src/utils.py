@@ -1,11 +1,11 @@
 import datetime
 import json
-import os
 import logging
-import pandas as pd
-import requests
+import os
 from typing import Any
 
+import pandas as pd
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,11 +33,11 @@ def greeting() -> str:
     return message
 
 
-def cards(data: str, path: Any) -> list:
+def cards(data: str, path: Any) -> Any:
     """Функция, формирующая информацию по карте (номер, расход, кэшбэк)"""
     try:
         logger.info("Чтение транзакций из файла")
-        date_string = datetime.datetime.strptime(data, "%Y-%m-%d %H:%M:%S").date()
+        date_string = datetime.datetime.strptime(data, "%d-%m-%Y %H:%M:%S").date()
         start_date = date_string.replace(day=1)
         reader = pd.read_excel(path, engine="openpyxl")
         reader["Дата операции"] = reader["Дата операции"].apply(
@@ -64,7 +64,7 @@ def top_five_transactions(data: str, path: Any) -> list:
     """Функция, возвращающая топ 5 транзакций по сумме платежа"""
     try:
         logger.info("Чтение транзакций из файла")
-        date_string = datetime.datetime.strptime(data, "%Y-%m-%d %H:%M:%S").date()
+        date_string = datetime.datetime.strptime(data, "%d-%m-%Y %H:%M:%S").date()
         start_date = date_string.replace(day=1)
         reader = pd.read_excel(path, engine="openpyxl")
         reader["Дата операции"] = reader["Дата операции"].apply(

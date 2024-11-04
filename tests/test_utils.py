@@ -4,7 +4,6 @@ import pandas as pd
 import pytest
 from freezegun import freeze_time
 
-
 from src.utils import cards, course_currency, greeting, stock_price, top_five_transactions
 
 
@@ -92,7 +91,7 @@ def test_cards_no_date(test_df):
 
 def test_top_five_transactions_no_date(test_df):
     """Тест функции с некорректным форматом даты"""
-    assert cards("02.12.2021", test_df) == []
+    assert top_five_transactions("02.12.2021", test_df) == []
 
 
 @patch("src.utils.requests.request")

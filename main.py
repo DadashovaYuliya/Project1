@@ -1,22 +1,23 @@
-from src.reports import spending_by_category, df_file
+from typing import Any
+
+import pandas as pd
+
+from src.reports import spending_by_category
 from src.services import get_transactions_by_row
-from src.views import greeting, cards, top_five_transactions, course_currency, stock_price, get_home_page
+from src.views import get_home_page
 
-# print(greeting())
-#
-# print(cards('2021-12-02 23:18:06', 'G:/Downloads/operations.xlsx'))
-#
-# print(top_five_transactions('2019-09-11 20:29:14', 'G:/Downloads/operations.xlsx'))
-#
-# print(course_currency('user_settings.json'))
-#
-# print(stock_price('user_settings.json'))
+path = "G:/Downloads/operations.xlsx"
+df_file = pd.read_excel(path, engine="openpyxl")
 
-# print(get_home_page('2021-12-02 23:18:00'))
 
-# print(get_transactions_by_row('G:/Downloads/operations.xlsx', 'каршеринг'))
-# print(df_file['Дата платежа'])
-print(spending_by_category(df_file, 'Каршеринг', '12.12.2021'))
-# {'Дата операции': '16.07.2019 16:30:10', 'Дата платежа': '18.07.2019', 'Номер карты': '*7197', 'Статус': 'OK', 'Сумма операции': -49.8, 'Валюта операции': 'RUB', 'Сумма платежа': -49.8, 'Валюта платежа': 'RUB', 'Кэшбэк': nan, 'Категория': 'Супермаркеты', 'MCC': 5411.0, 'Описание': 'SPAR', 'Бонусы (включая кэшбэк)': 0, 'Округление на инвесткопилку': 0, 'Сумма операции с округлением': 49.8}
+def main(date: str, data_frame: pd.DataFrame) -> Any:
+    print(get_home_page(date))
+    row = input("Введите слово для поиска\n")
+    print(get_transactions_by_row(path, row))
+    category = input("Введите категорию для фильтрации транзакций\n")
+    print(spending_by_category(data_frame, category, date))
 
-# https://github.com/lAntonKuznetsovl/course-paper/blob/feature/coursed_paper/src/services.py
+
+if __name__ == "__main__":
+    date_str = input("Введите дату в формате: YYYY-MM-DD HH:MM:SS:\n")
+    print(main(date_str, df_file))
