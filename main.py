@@ -19,5 +19,5 @@ def main(date: str, data_frame: pd.DataFrame) -> Any:
 
 
 if __name__ == "__main__":
-    date_str = input("Введите дату в формате: YYYY-MM-DD HH:MM:SS:\n")
+    date_str = input("Введите дату в формате: DD-MM-YYYY HH:MM:SS:\n")
     print(main(date_str, df_file))

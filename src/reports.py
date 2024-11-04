@@ -36,10 +36,10 @@ def spending_by_category(transactions: pd.DataFrame, category: str, date: Option
     try:
         logger.info("Начало работы функции")
         if date is None:
-            end_date = datetime.now()
+            end_date = datetime.datetime.now()
 
         else:
-            end_date = datetime.strptime(date, "%d-%m-%Y %H:%M:%S")
+            end_date = datetime.datetime.strptime(date, "%d-%m-%Y %H:%M:%S")
 
         start_date = end_date - relativedelta(months=3)
         df_date = pd.to_datetime(transactions["Дата операции"], format="%d.%m.%Y %H:%M:%S")
